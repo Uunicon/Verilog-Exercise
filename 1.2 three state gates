@@ -5,3 +5,31 @@ module three_state_gates(iA,iEna,oTri);
   output oTri;
   assign oTri = (iEna==1)? iA: 'bz;
 endmodule
+
+//test code
+`timescale 1ns / 1ns
+module three_state_gates_tb;
+  reg iA;
+  reg iEna;
+  wire oTristate;
+  
+    three_state_gates uut(
+    .iA(iA),
+    .iEna(iEna),
+    .oTri(oTristate)
+    );
+      initial
+      begin
+      iA = 0;
+      #40 iA = 1;
+      #40 iA = 0;
+      #40 iA = 1;
+      end
+      initial
+      begin
+      iEna=1;
+      #20 iEna = 0;
+      #40 iEna = 1;
+      #20 iEna = 0;
+      end
+endmodule
