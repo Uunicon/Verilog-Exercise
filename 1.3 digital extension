@@ -1,0 +1,36 @@
+//digital extention 16-bits to 32-bits
+module extend #(parameter WIDTH = 16)(
+   input [WIDTH-1:0] a, //输入数据，数据宽度可以根据需要自行定义
+   input sext, //sext 有效为符号扩展，否则0 扩展
+   output [31:0]b //32 位输出数据
+   );
+   assign b=sext? {{(32-WIDTH){a[WIDTH-1]}},a} : {27'b0,a};
+endmodule
+
+//test code
+`timescale 1ns / 1ns
+module three_state_gates_tb;
+  reg iA;
+  reg iEna;
+  wire oTristate;
+  
+    three_state_gates uut(
+    .iA(iA),
+    .iEna(iEna),
+    .oTri(oTristate)
+    );
+      initial
+      begin
+      iA = 0;
+      #40 iA = 1;
+      #40 iA = 0;
+      #40 iA = 1;
+      end
+      initial
+      begin
+      iEna=1;
+      #20 iEna = 0;
+      #40 iEna = 1;
+      #20 iEna = 0;
+      end
+endmodule

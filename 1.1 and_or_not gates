@@ -1,0 +1,66 @@
+//three representing method of and_or_not gates
+
+//1st structural type
+module logic_gates_1(iA,iB,oAnd,oOr,oNot );
+  input iA,iB;
+  output oAnd,oOr,oNot;
+  and and_inst(oAnd,iA,iB);
+  or or_inst(oOr,iA,iB);
+  not not_inst(oNot,iA);
+endmodule
+
+//2ed date-stream type
+module logic_gates_2(iA,iB,oAnd,oOr,oNot);
+  input iA,iB;
+  output oAnd,oOr,oNot;
+  assign oAnd = iA & iB;
+  assign oOr = iA | iB;
+  assign oNot = ~iA;
+endmodule
+
+//3rd behavior description
+module logic_gates_3(iA,iB,oAnd,oOr,oNot );
+  input iA,iB;
+  output oAnd,oOr,oNot;
+  reg oAnd, oOr, oNot;
+  always @ (*)
+  begin
+    oAnd = iA & iB ;
+    oOr = iA | iB ;
+    oNot = ~iA;
+   end
+endmodule
+
+//testing code
+`timescale 1ns / 1ns
+module logic_gates_tb1;
+   reg iA;
+   reg iB;
+   wire oAnd;
+   wire oOr;
+   wire oNot;
+   initial
+   begin
+     iA=0;
+     #40 iA=1;
+     #40 iA=0;
+     #40 iA=1;
+     #40 iA=0;
+   end
+    initial
+     begin
+       iB=0;
+       #40 iB=0;
+       #40 iB=1;
+       #40 iB=1;
+       #40 iB=0;
+     end
+     logic_gates_1
+     logic_gates_inst(
+     .iA(iA),
+     .iB(iB),
+     .oAnd(oAnd),
+     .oOr(oOr),
+     .oNot(oNot)
+     );
+Endmodule
