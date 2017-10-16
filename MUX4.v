@@ -27,9 +27,9 @@ module MUX41(
     input [3:0] ic3,
     input is0,
     input is1,
-    output [3:0] oz
+    output reg [3:0] oz
     );
-    reg oz;
+    
          always @ (*)
          begin
            case({is1,is0})
