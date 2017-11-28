@@ -29,16 +29,15 @@ module ram(
     output reg [31:0] data_out
     );
     reg [31:0] mem[0:31];
-    initial  //初始化ram
      
     always @ (posedge clk or posedge ena or negedge ena )
     begin
       if(!ena) data_out= 32'hzzzz_zzzz;
       else
         begin
-          if(wena)  //写有效
+          if(wena)  
            mem[addr]<=data_in;
-          else      //读有效
+          else      
            data_out<=mem[addr];
         end
     end
